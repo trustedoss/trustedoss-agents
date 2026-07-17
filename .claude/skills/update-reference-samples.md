@@ -31,10 +31,11 @@ bash .claude/scripts/verify.sh
 
 ### organization.md — Type A
 
-| 섹션 이름 (H2)             | 파일명             | output-sample 경로              |
-| -------------------------- | ------------------ | ------------------------------- |
-| 오픈소스 역할 및 책임 정의 | role-definition.md | organization/role-definition.md |
-| 오픈소스 RACI 매트릭스     | raci-matrix.md     | organization/raci-matrix.md     |
+| 섹션 이름 (H2)             | 파일명                  | output-sample 경로                   |
+| -------------------------- | ----------------------- | ------------------------------------ |
+| 오픈소스 역할 및 책임 정의 | role-definition.md      | organization/role-definition.md      |
+| 오픈소스 RACI 매트릭스     | raci-matrix.md          | organization/raci-matrix.md          |
+| 오픈소스 담당자 임명장     | appointment-template.md | organization/appointment-template.md |
 
 ---
 
@@ -143,7 +144,9 @@ YAML front matter가 있고, 파일명을 섹션 헤더로 쓰는 파일군.
 ```
 ## {파일명}
 
-> **생성 agent**: `{agent-name}` | **저장 경로**: `output/{폴더}/{파일명}`
+:::info
+**생성 agent**: `{agent-name}` | **저장 경로**: `output/{폴더}/{파일명}`
+:::
 
 ---
 
@@ -151,6 +154,8 @@ YAML front matter가 있고, 파일명을 섹션 헤더로 쓰는 파일군.
 
 ---
 ```
+
+(기존 페이지가 `> **생성 agent**...` 인용 표기를 쓰고 있으면 admonition 형식으로 교체한다 — 인용(>) 금지 규칙)
 
 ---
 
@@ -210,4 +215,4 @@ HTML 주석 `<!-- 5230 §... -->` 을 코드블록으로 변환한다:
 
 - output-sample/에 없는 파일이 있으면 해당 섹션은 재생성하지 않고 기존 내용을 유지한다.
 - 먼저 `bash .claude/scripts/sync-output-samples.sh`를 실행하여 output-sample/을 최신화한 후 이 스킬을 실행하는 것을 권장한다.
-- 완료 후 반드시 `bash .claude/scripts/verify.sh`를 실행하여 7개 항목 PASS를 확인한다.
+- 완료 후 반드시 `bash .claude/scripts/verify.sh`를 실행하여 12개 항목 PASS를 확인한다.

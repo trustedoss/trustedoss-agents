@@ -10,14 +10,19 @@ validate-checklist skill과 generate-report skill을 모두 적용한다.
 
 **세션 시작 시 동작**: 사용자가 첫 메시지(예: "시작")를 입력하면 안내 메시지를 출력하고 입력 질문 1번부터 순서대로 질문을 시작한다.
 
+**경로 기준**: 이 문서의 `output/`, `templates/` 상대 경로는 모두 레포 루트 기준이다.
+이 agent 세션의 작업 디렉토리는 `agents/` 하위이므로 파일을 읽고 쓸 때는 레포 루트로 올라가서
+(`../../output/...`) 접근한다. "다음 단계"의 `cd agents/...` 명령도 레포 루트에서 실행하는 기준이다.
+
 ## 충족 체크리스트
 
-| 항목ID | 요구사항                     | ISO/IEC 5230 | ISO/IEC 18974 |
-| ------ | ---------------------------- | ------------ | ------------- |
-| G4.1   | ISO/IEC 5230 자체 인증 선언  | 3.6.1        | —             |
-| G4.2   | ISO/IEC 18974 자체 인증 선언 | —            | 4.4.1         |
-| G4.3   | 인증 유효기간 관리 (18개월)  | 3.6.2        | 4.4.2         |
-| G4.4   | 정기 갭 분석 및 정책 갱신    | 3.6.2        | 4.4.2         |
+| 항목ID | 요구사항                                | ISO/IEC 5230 | ISO/IEC 18974 |
+| ------ | --------------------------------------- | ------------ | ------------- |
+| G4.1   | ISO/IEC 5230 자체 인증 선언             | 3.6.1        | —             |
+| G4.2   | ISO/IEC 18974 자체 인증 선언            | —            | 4.4.1         |
+| G4.3   | 인증 유효기간 관리 (18개월)             | 3.6.2        | 4.4.2         |
+| G4.4   | 정기 갭 분석 및 정책 갱신               | 3.6.2        | 4.4.2         |
+| G4.5   | 배포 소프트웨어 알려진 취약점 없음 확인 | —            | 4.4.1, 4.3.2  |
 
 ## 전제 조건
 
@@ -28,9 +33,9 @@ validate-checklist skill과 generate-report skill을 모두 적용한다.
 - output/process/ (G1.6, G2.2, G3L.2, G3L.5, G3L.6)
   - 필수: inquiry-response.md
   - 조건부: contribution-process.md (기여 계획 있을 경우)
-- output/sbom/ (G3B.1~G3B.4, G3L.1, G3L.3)
-- output/vulnerability/ (G3S.1~G3S.4)
-- output/training/ (G1.4, G2.3)
+- output/sbom/ (G3B.1~G3B.4, G3L.1, G3L.3, G3S.5)
+- output/vulnerability/ (G3S.1~G3S.4, G3S.6)
+- output/training/ (G1.4, G1.7, G2.3)
 
 일부 미완료 상태에서도 실행 가능하다. 갭 분석에서 미충족 항목이 표시된다.
 
@@ -47,7 +52,7 @@ validate-checklist skill과 generate-report skill을 모두 적용한다.
 
 1. `.claude/skills/validate-checklist.md` 의 순서로 output/ 스캔 (18개 파일 체크, 기여 계획 없으면 17개)
 2. `.claude/skills/generate-report.md` 의 형식으로 갭 분석 리포트 생성
-3. 25개 체크리스트 항목 전체 대조:
+3. 체크리스트 항목 전체 대조 (표준별 입증자료 25개, 두 표준 모두 선택 시 총 50개):
    - 충족 ✅: 파일 존재 + 필수 섹션 포함
    - 부분충족 🔶: 파일 존재 + 일부 섹션 누락, 또는 시간 기반 항목 계획 수립 완료
    - 미충족 ❌: 파일 없음
@@ -66,7 +71,7 @@ validate-checklist skill과 generate-report skill을 모두 적용한다.
 
 ```
 output/conformance/
-├── gap-analysis.md        # 갭 분석 리포트 (25개 항목 대조)
+├── gap-analysis.md        # 갭 분석 리포트 (표준별 입증자료 25개 대조)
 ├── declaration-draft.md   # 자체 인증 선언문 초안
 └── submission-guide.md    # OpenChain 등록 절차 안내
 ```
@@ -83,7 +88,7 @@ declaration-draft.md 에 포함되는 내용:
 
 ## 완료 메시지
 
-모든 25개 항목이 충족되면 아래 메시지를 출력한다:
+선택한 표준의 입증자료(표준별 25개)가 모두 충족되면 아래 메시지를 출력한다:
 
 ```
 🎉 축하합니다!

@@ -9,6 +9,10 @@ SBOM 관리 계획 및 외부 공유 템플릿을 생성하는 agent다.
 
 **세션 시작 시 동작**: 사용자가 첫 메시지(예: "시작")를 입력하면 안내 메시지를 출력하고 입력 질문 1번부터 순서대로 질문을 시작한다.
 
+**경로 기준**: 이 문서의 `output/`, `templates/` 상대 경로는 모두 레포 루트 기준이다.
+이 agent 세션의 작업 디렉토리는 `agents/` 하위이므로 파일을 읽고 쓸 때는 레포 루트로 올라가서
+(`../../output/...`) 접근한다. "다음 단계"의 `cd agents/...` 명령도 레포 루트에서 실행하는 기준이다.
+
 ## 충족 체크리스트
 
 | 항목ID | 요구사항                    | ISO/IEC 5230 | ISO/IEC 18974 |
@@ -16,11 +20,13 @@ SBOM 관리 계획 및 외부 공유 템플릿을 생성하는 agent다.
 | G3B.2  | SBOM 관리 및 유지보수       | —            | 4.3.1         |
 | G3B.3  | SBOM 공유 (공급망 파트너)   | —            | 4.3.1         |
 | G3B.4  | 공급망 취약점 지속 모니터링 | —            | 4.3.2         |
+| G3S.5  | 보안 산출물 배포 프로세스   | —            | 4.3.1         |
 
 ## 전제 조건
 
 - `output/sbom/*.cdx.json` 완료 (05-sbom-guide 실행 후)
 - `output/sbom/license-report.md` 완료 (05-sbom-analyst 실행 후 — 라이선스 분석 결과 반영)
+- `output/sbom/copyleft-risk.md` 완료 (05-sbom-analyst 실행 후 — Copyleft 위험 분석 반영)
 
 ## 입력 질문 (순서대로)
 
@@ -70,5 +76,7 @@ ls output/sbom/
 cd agents/05-vulnerability-analyst
 claude
 ```
+
+Claude 프롬프트가 열리면 `시작`을 입력한다.
 
 > 취약점 분석 완료 후 → 06-training-manager 실행

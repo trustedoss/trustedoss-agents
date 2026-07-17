@@ -22,23 +22,26 @@
 
 ### 1.2 생성 도구
 
-| 빌드 환경   | 도구                       | 생성 포맷        |
-| ----------- | -------------------------- | ---------------- |
-| Java/Maven  | `cyclonedx-maven-plugin`   | CycloneDX JSON   |
-| Java/Gradle | `cyclonedx-gradle-plugin`  | CycloneDX JSON   |
-| Node.js     | `@cyclonedx/cyclonedx-npm` | CycloneDX JSON   |
-| Python      | `cyclonedx-bom`            | CycloneDX JSON   |
-| 포맷 변환   | `cdxgen`, `spdx-tools`     | CycloneDX ↔ SPDX |
+| 빌드 환경   | 도구                          | 생성 포맷        |
+| ----------- | ----------------------------- | ---------------- |
+| Java/Maven  | `cyclonedx-maven-plugin`      | CycloneDX JSON   |
+| Java/Gradle | `cyclonedx-gradle-plugin`     | CycloneDX JSON   |
+| Node.js     | `@cyclonedx/cyclonedx-npm`    | CycloneDX JSON   |
+| Python      | `cyclonedx-bom`               | CycloneDX JSON   |
+| 포맷 변환   | `cyclonedx-cli`, `spdx-tools` | CycloneDX ↔ SPDX |
 
 ### 1.3 포맷 변환
 
 납품처가 SPDX를 요구하는 경우 CycloneDX → SPDX 변환을 수행한다.
 
 ```bash
-# CycloneDX → SPDX 변환 (cdxgen 사용)
-cdxgen -o sbom.cdx.json --format json .
-# SPDX 변환은 별도 도구(spdx-tools) 또는 납품처 지정 도구 활용
+# CycloneDX → SPDX 변환 (cyclonedx-cli 사용)
+cyclonedx convert --input-file sbom.cdx.json \
+  --output-file sbom.spdx.json --output-format spdxjson
 ```
+
+cdxgen은 SBOM 생성 도구로 포맷 간 변환 기능이 없으므로, 변환에는 cyclonedx-cli
+(`docker run --rm -v $(pwd):/data cyclonedx/cyclonedx-cli convert ...`) 또는 납품처 지정 도구를 사용한다.
 
 ---
 
@@ -163,8 +166,7 @@ updates:
 
 ## 6. 준거 표준
 
-| 표준          | 요구사항                            |
-| ------------- | ----------------------------------- |
-| ISO/IEC 18974 | 4.3.1 — SBOM 관리 및 유지보수       |
-| ISO/IEC 18974 | 4.3.1 — SBOM 공유 (공급망 파트너)   |
-| ISO/IEC 18974 | 4.3.2 — 공급망 취약점 지속 모니터링 |
+| 표준          | 요구사항                                                               |
+| ------------- | ---------------------------------------------------------------------- |
+| ISO/IEC 18974 | 4.3.1 — 오픈소스 컴포넌트의 수명주기 지속 기록 (SBOM 관리 및 유지보수) |
+| ISO/IEC 18974 | 4.3.2 — 공급망 취약점 지속 모니터링                                    |
